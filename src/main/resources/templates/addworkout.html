@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Workout Planner</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="col-md-4">
+                <h1>Add workout</h1>
+            </div>
+            <div class="container">
+                <form th:object="${workout}" th:action="@{save}" action="#" method="POST">
+                    <div class="row row-no-gutters">
+                        <label for="date" class="col-md-1">Date</label>
+                        <input type="date" id="date" th:field="*{date}" class="col-md-2"/>
+                    </div>
+                    <div style="clear: both; display: block; height: 10px;"></div>
+                    <div class="row row-no-gutters">
+                        <label for="routine" class="col-md-1">Routine</label>
+                        <input type="text" id="routine" th:field="*{routine}" class="col-md-2"/>
+                    </div>
+                    <div style="clear: both; display: block; height: 10px;"></div>
+                    <!-- <label for="categorylist">Category</label>
+                    <select id="categorylist" th:field="*{category}" class="form-control" style="width: auto;">
+                        <option th:each="category: ${categories}"
+                                th:value="${category.categoryId}"
+                                th:text="${category.name}"></option>
+                    </select>
+                    <div style="clear: both; display: block; height: 10px;"></div> -->
+                    <input type="submit" class="btn btn-success" value="Save"></input>
+                    <a href="/workoutlist" class="btn btn-danger">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
