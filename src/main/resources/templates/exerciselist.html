@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Workout Planner</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div style="clear: both; display: block; height: 20px;"></div>
+            <h3>Add exercise</h3>
+            <form th:action="@{/workoutlist/{id}/save (id=${workout.workoutId})}" action="#" method="post">
+                <div class="row row-no-gutters">
+                    <label for="name" class="col-md-1">Name</label>
+                    <input type="text" id="name" th:field="${exercise.name}" class="col-md-2" required />
+                </div>
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <div class="row row-no-gutters">
+                    <label for="targetWeight" class="col-md-1">Target weight</label>
+                    <input type="text" id="targetWeight" th:field="${exercise.targetWeight}" class="col-md-2" required />
+                </div>
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <div class="row row-no-gutters">
+                    <label for="targetSets" class="col-md-1">Target sets</label>
+                    <input type="text" id="targetSets" th:field="${exercise.targetSets}" class="col-md-2" required />
+                </div>
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <div class="row row-no-gutters">
+                    <label for="targetReps" class="col-md-1">Target reps</label>
+                    <input type="text" id="targetReps" th:field="${exercise.targetReps}" class="col-md-2" required />
+                </div>
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <div class="row row-no-gutters">
+                    <label for="comments" class="col-md-1">Comments</label>
+                    <input type="text" id="comments" th:field="${exercise.comments}" class="col-md-2" />
+                </div>
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <input type="submit" class="btn btn-success" value="Add exercise" />
+                <input type="reset" class="btn btn-danger" value="Reset form" />
+                <div style="clear: both; display: block; height: 10px;"></div>
+            </form>
+            <div style="clear: both; display: block; height: 20px;"></div>
+            <div>
+                <h1>Exercises</h1>
+            </div>
+            <h2 th:text="${workout.dateFormatted + ' - ' + workout.routine + ' - ' + workout.location}"></h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Target weight</th>
+                    <th>Target sets</th>
+                    <th>Target reps per set</th>
+                    <th>Total target reps</th>
+                    <th>Result reps</th>
+                    <th>Comments</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr th:if="${workout.exercises.empty}">
+                    <td colspan="4">No exercises yet for this workout! Try adding some exercises above.</td>
+                </tr>
+                <tr th:each="exercise : ${workout.exercises}">
+                    <td th:text="${exercise.name}"></td>
+                    <td th:text="${exercise.targetWeight}"></td>
+                    <td th:text="${exercise.targetSets}"></td>
+                    <td th:text="${exercise.targetReps}"></td>
+                    <td th:text="${exercise.targetSets != null && exercise.targetReps != null ? exercise.targetSets * exercise.targetReps : exercise.targetReps}"></td>
+                    <td th:if="${exercise.resultReps == null}">
+                        <form class="form-inline" th:action="@{/workoutlist/{id}/save/{exerciseid}/results (id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" action="#" method="post">
+                            <input type="text" class="mr-sm-2 col-md-3" name="resultReps" th:field="${exercise.resultReps}" />
+                            
+                            <!-- this was for the initial List type of resultReps
+                            <table>
+                                <tr th:each="result, resultStat : ${exercise.resultReps}">
+                                    <td><input type="text" th:field="${exercise.resultReps[__${resultStat.index}__]}" /></td>
+                                </tr>
+                            </table> -->
+
+                            <input type="submit" class="btn btn-sm btn-success" value="Save" />
+                        </form>
+                    </td>
+                    <td th:unless="${exercise.resultReps == null}">
+                        <!-- <div th:text="${#strings.listJoin(exercise.resultReps, ', ')}"></div> ---- this was for the initial List type of resultReps -->
+                        <div th:text="${exercise.resultReps}"></div>
+                    </td>
+                    <td th:if="${exercise.comments == null || exercise.comments == ''}">
+                        <form class="form-inline" th:action="@{/workoutlist/{id}/save/{exerciseid}/comments (id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" action="#" method="post">
+                            <input type="text" class="mr-sm-2 col-md-8" name="comments" th:field="${exercise.comments}" />
+                            <input type="submit" class="btn btn-sm btn-success" value="Save" />
+                        </form>
+                    </td>
+                    <td th:unless="${exercise.comments == null || exercise.comments == ''}">
+                        <div th:text="${exercise.comments}"></div>
+                    </td>
+                    <!-- <td th:text="${exercise.comments}"></td> -->
+                    <td><a th:href="@{/workoutlist/{id}/delete/{exerciseid}(id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" class="btn btn-xs btn-danger">Remove</a></td>
+                </tr>
+            </table>
+
+            <a href="/workoutlist" class="btn btn-primary">Return to workouts</a>
+            <!-- <div class="col-md-4">
+                <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h3>
+            </div>
+            <div class="col-md-4" style="padding:20px 0">
+                <form th:action="@{/logout}" method="POST">
+                    <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+                </form>
+            </div> -->
+        </div>
+    </body>
+</html>

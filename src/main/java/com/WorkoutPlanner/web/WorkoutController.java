@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WorkoutController {
@@ -16,10 +17,10 @@ public class WorkoutController {
     @Autowired
     WorkoutRepository workoutRepository;
     
-    // Show all workouts in a list
+    // Show all workouts in a list, sorted by date
     @GetMapping("/workoutlist")
     public String workoutList(Model model) {
-        model.addAttribute("workouts", workoutRepository.findAll());
+        model.addAttribute("workouts", workoutRepository.findAllByOrderByDate());
         return "workoutlist";
     }
 
@@ -27,25 +28,25 @@ public class WorkoutController {
     @GetMapping("/add")
     public String addWorkout(Model model) {
         model.addAttribute("workout", new Workout());
-        // model.addAttribute("exercises", attributeValue); katsotaan tuleeko tähän mitään
         return "addworkout";
     }
 
-    // Save new workout
+    // Save new workout (redirects to newly created workout's exercise list)
     @PostMapping("/save")
-    public String saveWorkout(Workout workout) {
+    public String saveWorkout(Workout workout, RedirectAttributes redirectAttributes) {
         workoutRepository.save(workout);
-        return "redirect:/workoutlist";
+        redirectAttributes.addAttribute("id", workout.getWorkoutId());
+        return "redirect:/workoutlist/{id}";
     }
 
-    // Delete workout
+    // Delete workout (and all exercises in it)
     @GetMapping("/delete/{id}")
-    public String deleteWorkout(@PathVariable("id") Long workoutId, Model model) {
+    public String deleteWorkout(@PathVariable("id") Long workoutId) {
         workoutRepository.deleteById(workoutId);
         return "redirect:../workoutlist";
     }
 
-    // Edit workout
+    // Edit workout (redirects to edited workout's exercise list)
     @GetMapping("/edit/{id}")
     public String editWorkout(@PathVariable("id") Long workoutId, Model model) {
         model.addAttribute("workout", workoutRepository.findById(workoutId));

@@ -10,5 +10,6 @@ public interface WorkoutRepository extends CrudRepository<Workout, Long> {
 
     List<Workout> findByRoutine(String routine);
 
-    // findAllOrderByDateAsc(), toimisiko sorttausta varten?
+    // Method for sorting all Workouts by date
+    List<Workout> findAllByOrderByDate();
 }

@@ -8,9 +8,11 @@
 
     <body>
         <div class="container">
+            <div style="clear: both; display: block; height: 20px;"></div>
             <div class="col-md-4">
                 <h1>Workouts</h1>
             </div>
+            <div style="clear: both; display: block; height: 20px;"></div>
             <!-- <div class="col-md-4">
                 <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h3>
             </div>
@@ -23,15 +25,22 @@
                 <tr>
                     <th>Date</th>
                     <th>Routine</th>
+                    <th>Location</th>
+                    <th>&nbsp;</th>
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                     <!-- <th sec:authorize="hasAuthority('ADMIN')">&nbsp;</th> -->
                 </tr>
+                <tr th:if="${workouts.empty}">
+                    <td colspan="4">No workouts yet! Add a workout to get started.</td>
+                </tr>
                 <tr th:each="workout : ${workouts}">
                     <td th:text="${workout.dateFormatted}"></td>
                     <td th:text="${workout.routine}"></td>
-                    <td><a th:href="@{/edit/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-warning">Edit</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-danger">Delete</a></td>
+                    <td th:text="${workout.location}"></td>
+                    <td><a th:href="@{/workoutlist/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-success">See exercises</a></td>
+                    <td><a th:href="@{/edit/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-warning">Edit workout</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-danger">Delete workout</a></td>
                     <!-- <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td> -->
                 </tr>
             </table>

@@ -8,14 +8,14 @@
 
     <body>
         <div class="container">
+            <div style="clear: both; display: block; height: 20px;"></div>
             <div class="col-md-4">
-                <h1>Add workout</h1>
+                <h1>Edit workout</h1>
             </div>
             <div class="container">
                 <form th:object="${workout}" th:action="@{../save}" action="#" method="POST">
                     <label for="id"></label>
                     <input type="hidden" id="id" th:field="*{workoutId}" readonly="readonly" class="form-control" />
-                    <div style="clear: both; display: block; height: 10px;"></div>
                     <div class="row row-no-gutters">
                         <label for="date" class="col-md-1">Date</label>
                         <input type="date" id="date" th:field="*{date}" class="col-md-2"/>
@@ -26,14 +26,13 @@
                         <input type="text" id="routine" th:field="*{routine}" class="col-md-2"/>
                     </div>
                     <div style="clear: both; display: block; height: 10px;"></div>
-                    <!-- <label for="categorylist">Category</label>
-                    <select id="categorylist" th:field="*{category}" class="form-control" style="width: auto;">
-                        <option th:each="category: ${categories}"
-                                th:value="${category.categoryId}"
-                                th:text="${category.name}"></option>
-                    </select>
-                    <div style="clear: both; display: block; height: 10px;"></div> -->
-                    <input type="submit" class="btn btn-success" value="Save"></input>
+                    <div class="row row-no-gutters">
+                        <label for="location" class="col-md-1">Location</label>
+                        <input type="text" id="location" th:field="*{location}" class="col-md-2"/>
+                    </div>
+                    <div style="clear: both; display: block; height: 20px;"></div>
+                    <input type="hidden" id="exercises" th:field="*{exercises}" readonly />
+                    <input type="submit" class="btn btn-success" value="Save workout"></input>
                     <a href="/workoutlist" class="btn btn-danger">Cancel</a>
                 </form>
             </div>
