@@ -1,5 +1,8 @@
 package com.WorkoutPlanner.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.WorkoutPlanner.domain.Workout;
 import com.WorkoutPlanner.domain.WorkoutRepository;
 
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -17,6 +21,22 @@ public class WorkoutController {
     @Autowired
     WorkoutRepository workoutRepository;
     
+    /****************** RESTFUL SERVICES ******************/
+
+    // Get all workouts
+    @GetMapping("/api/workouts")
+    public @ResponseBody List<Workout> workoutListRest() {
+        return (List<Workout>) workoutRepository.findAll();
+    }
+
+    // Get workout by id
+    @GetMapping("/api/workouts/{id}")
+    public @ResponseBody Optional<Workout> findWorkoutRest(@PathVariable("id") Long workoutId) {
+        return workoutRepository.findById(workoutId);
+    }
+
+    /******************************************************/
+
     // Show all workouts in a list, sorted by date
     @GetMapping("/workoutlist")
     public String workoutList(Model model) {

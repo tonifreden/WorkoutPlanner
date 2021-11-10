@@ -1,9 +1,11 @@
 package com.WorkoutPlanner.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.WorkoutPlanner.domain.Exercise;
 import com.WorkoutPlanner.domain.ExerciseRepository;
+import com.WorkoutPlanner.domain.Workout;
 import com.WorkoutPlanner.domain.WorkoutRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ExerciseController {
@@ -23,6 +26,28 @@ public class ExerciseController {
 
     @Autowired
     WorkoutRepository workoutRepository;
+
+    /****************** RESTFUL SERVICES ******************/
+
+    // Get all exercises
+    @GetMapping("/api/exercises")
+    public @ResponseBody List<Exercise> exerciseListRest() {
+        return (List<Exercise>) exerciseRepository.findAll();
+    }
+
+    // Get exercise by id
+    @GetMapping("/api/exercises/{id}")
+    public @ResponseBody Optional<Exercise> findExerciseRest(@PathVariable("id") Long exerciseId) {
+        return exerciseRepository.findById(exerciseId);
+    }
+
+    @GetMapping("/api/exercises/workout/{id}")
+    public @ResponseBody List<Exercise> findExercisesByWorkoutId(@PathVariable("id") Long workoutId) {
+        Workout workout = workoutRepository.findById(workoutId).get();
+        return workout.getExercises();
+    }
+
+    /******************************************************/
 
     // Show exercise list by workout id
     @GetMapping("/workoutlist/{id}")
