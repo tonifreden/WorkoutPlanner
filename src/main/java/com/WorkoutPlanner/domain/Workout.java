@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Workout {
-    
+    // TODO: validatorit workouteihin?
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long workoutId;

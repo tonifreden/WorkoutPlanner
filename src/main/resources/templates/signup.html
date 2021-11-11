@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Workout Planner sign-up</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    </head>
+    <body>
+        <div style="clear: both; display: block; height: 40px;"></div>
+        <div class="d-flex justify-content-center">
+            <div class="col-md-4 col-md-offset-4">
+                <h1>Workout Planner sign-up</h1>
+                <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="POST">
+                    <div>
+                        <label>Username: <input type="text" th:field="*{username}" class="form-control"/></label>
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</p>	
+                    </div>
+                    <div>
+                        <label>Email: <input type="text" th:field="*{email}" class="form-control"/></label>
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</p>
+                    </div>
+                    <div>
+                        <label>Password: <input type="password" th:field="*{password}" class="form-control"/></label>
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>	
+                    </div>
+                    <div>
+                        <label>Re-type password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+                        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>	
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Sign-up" />
+                    <a href="/login" class="btn btn-outline-danger">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </body>

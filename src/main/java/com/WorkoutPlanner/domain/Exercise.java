@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Exercise {
+    // TODO: validatorit exerciseihin?
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long exerciseId;
@@ -37,7 +38,7 @@ public class Exercise {
     */
     private String resultReps;
     // results for each set, e.g. if target sets is 3 and target reps is 8, result reps could be 8, 8, 7, so the last set fell one short of targeted rep amount
-    // intended / example input form with commas and spaces: "8, 8, 8"
+    // intended/example input form with commas and spaces: "8, 8, 8"
     
     private String comments; // Field for comments on exercise, e.g. "poor form" or "too easy, add more weights next time"
 

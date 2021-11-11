@@ -11,13 +11,16 @@ import com.WorkoutPlanner.domain.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@CrossOrigin
 @Controller
 public class ExerciseController {
     
@@ -45,6 +48,11 @@ public class ExerciseController {
     public @ResponseBody List<Exercise> findExercisesByWorkoutId(@PathVariable("id") Long workoutId) {
         Workout workout = workoutRepository.findById(workoutId).get();
         return workout.getExercises();
+    }
+
+    @PostMapping("/exercises")
+    public @ResponseBody Exercise saveExerciseRest(@RequestBody Exercise exercise) {
+        return exerciseRepository.save(exercise);
     }
 
     /******************************************************/

@@ -9,12 +9,15 @@ import com.WorkoutPlanner.domain.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@CrossOrigin
 @Controller
 public class WorkoutController {
 
@@ -33,6 +36,12 @@ public class WorkoutController {
     @GetMapping("/api/workouts/{id}")
     public @ResponseBody Optional<Workout> findWorkoutRest(@PathVariable("id") Long workoutId) {
         return workoutRepository.findById(workoutId);
+    }
+
+    // Save new workout
+    @PostMapping("/workouts")
+    public @ResponseBody Workout saveWorkoutRest(@RequestBody Workout workout) {
+        return workoutRepository.save(workout);
     }
 
     /******************************************************/

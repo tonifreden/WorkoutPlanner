@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ExerciseRepository extends CrudRepository<Exercise, Long> {
+    // Find all exercises based on its/their name
     List<Exercise> findByName(String name);
 
     // Find all exercises based on target weight
