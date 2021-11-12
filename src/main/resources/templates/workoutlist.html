@@ -43,7 +43,7 @@
                     <td th:text="${workout.location}"></td>
                     <td><a th:href="@{/workoutlist/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-success">See exercises</a></td>
                     <td><a th:href="@{/edit/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-warning">Edit workout</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-danger">Delete workout</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${workout.workoutId})}" class="btn btn-xs btn-outline-danger">Delete workout</a></td>
                     <!-- <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td> -->
                 </tr>
             </table>

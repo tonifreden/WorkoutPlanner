@@ -12,32 +12,32 @@
             <h3>Add exercise</h3>
             <form th:action="@{/workoutlist/{id}/save (id=${workout.workoutId})}" action="#" method="post">
                 <div class="row row-no-gutters">
-                    <label for="name" class="col-md-1">Name</label>
-                    <input type="text" id="name" th:field="${exercise.name}" class="col-md-2" required />
+                    <label for="name" class="col-form-label col-md-1">Name</label>
+                    <input type="text" id="name" th:field="${exercise.name}" class="form-control col-md-2" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
-                    <label for="targetWeight" class="col-md-1">Target weight</label>
-                    <input type="text" id="targetWeight" th:field="${exercise.targetWeight}" class="col-md-2" required />
+                    <label for="targetWeight" class="col-form-label col-md-1">Target weight</label>
+                    <input type="text" id="targetWeight" th:field="${exercise.targetWeight}" class="form-control col-md-2" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
-                    <label for="targetSets" class="col-md-1">Target sets</label>
-                    <input type="text" id="targetSets" th:field="${exercise.targetSets}" class="col-md-2" required />
+                    <label for="targetSets" class="col-form-label col-md-1">Target sets</label>
+                    <input type="text" id="targetSets" th:field="${exercise.targetSets}" class="form-control col-md-2" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
-                    <label for="targetReps" class="col-md-1">Target reps</label>
-                    <input type="text" id="targetReps" th:field="${exercise.targetReps}" class="col-md-2" required />
+                    <label for="targetReps" class="col-form-label col-md-1">Target reps</label>
+                    <input type="text" id="targetReps" th:field="${exercise.targetReps}" class="form-control col-md-2" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
-                    <label for="comments" class="col-md-1">Comments</label>
-                    <input type="text" id="comments" th:field="${exercise.comments}" class="col-md-2" />
+                    <label for="comments" class="col-form-label col-md-1">Comments</label>
+                    <input type="text" id="comments" th:field="${exercise.comments}" class="form-control col-md-2" />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <input type="submit" class="btn btn-success" value="Add exercise" />
-                <input type="reset" class="btn btn-danger" value="Reset form" />
+                <input type="reset" class="btn btn-outline-danger" value="Reset form" />
                 <div style="clear: both; display: block; height: 10px;"></div>
             </form>
             <div style="clear: both; display: block; height: 20px;"></div>
@@ -67,7 +67,7 @@
                     <td th:text="${exercise.targetSets != null && exercise.targetReps != null ? exercise.targetSets * exercise.targetReps : exercise.targetReps}"></td>
                     <td th:if="${exercise.resultReps == null}">
                         <form class="form-inline" th:action="@{/workoutlist/{id}/save/{exerciseid}/results (id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" action="#" method="post">
-                            <input type="text" class="mr-sm-2 col-md-3" name="resultReps" th:field="${exercise.resultReps}" />
+                            <input type="text" class="mr-sm-2 col-md-3 form-control" name="resultReps" th:field="${exercise.resultReps}" />
                             
                             <!-- this was for the initial List type of resultReps
                             <table>
@@ -85,7 +85,7 @@
                     </td>
                     <td th:if="${exercise.comments == null || exercise.comments == ''}">
                         <form class="form-inline" th:action="@{/workoutlist/{id}/save/{exerciseid}/comments (id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" action="#" method="post">
-                            <input type="text" class="mr-sm-2 col-md-8" name="comments" th:field="${exercise.comments}" />
+                            <input type="text" class="mr-sm-2 col-md-8 form-control" name="comments" th:field="${exercise.comments}" />
                             <input type="submit" class="btn btn-sm btn-success" value="Save" />
                         </form>
                     </td>
@@ -93,7 +93,7 @@
                         <div th:text="${exercise.comments}"></div>
                     </td>
                     <!-- <td th:text="${exercise.comments}"></td> -->
-                    <td><a th:href="@{/workoutlist/{id}/delete/{exerciseid}(id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" class="btn btn-xs btn-danger">Remove</a></td>
+                    <td><a th:href="@{/workoutlist/{id}/delete/{exerciseid}(id=${workout.workoutId}, exerciseid=${exercise.exerciseId})}" class="btn btn-xs btn-outline-danger">Remove</a></td>
                 </tr>
             </table>
 

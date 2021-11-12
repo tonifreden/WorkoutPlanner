@@ -17,23 +17,23 @@
                     <label for="id"></label>
                     <input type="hidden" id="id" th:field="*{workoutId}" readonly="readonly" class="form-control" />
                     <div class="row row-no-gutters">
-                        <label for="date" class="col-md-1">Date</label>
-                        <input type="date" id="date" th:field="*{date}" class="col-md-2"/>
+                        <label for="date" class="col-form-label col-md-1">Date</label>
+                        <input type="date" id="date" th:field="*{date}" class="form-control col-md-2"/>
                     </div>
                     <div style="clear: both; display: block; height: 10px;"></div>
                     <div class="row row-no-gutters">
-                        <label for="routine" class="col-md-1">Routine</label>
-                        <input type="text" id="routine" th:field="*{routine}" class="col-md-2"/>
+                        <label for="routine" class="col-form-label col-md-1">Routine</label>
+                        <input type="text" id="routine" th:field="*{routine}" class="form-control col-md-2"/>
                     </div>
                     <div style="clear: both; display: block; height: 10px;"></div>
                     <div class="row row-no-gutters">
-                        <label for="location" class="col-md-1">Location</label>
-                        <input type="text" id="location" th:field="*{location}" class="col-md-2"/>
+                        <label for="location" class="col-form-label col-md-1">Location</label>
+                        <input type="text" id="location" th:field="*{location}" class="form-control col-md-2"/>
                     </div>
                     <div style="clear: both; display: block; height: 20px;"></div>
                     <input type="hidden" id="exercises" th:field="*{exercises}" readonly />
                     <input type="submit" class="btn btn-success" value="Save workout"></input>
-                    <a href="/workoutlist" class="btn btn-danger">Cancel</a>
+                    <a href="/workoutlist" class="btn btn-outline-danger">Cancel</a>
                 </form>
             </div>
         </div>

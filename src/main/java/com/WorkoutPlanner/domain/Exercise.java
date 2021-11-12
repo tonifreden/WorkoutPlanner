@@ -26,8 +26,8 @@ public class Exercise {
 
     /**
      * This is commented out for future improvement.
-     * Initially I tried to make resultReps a List, but I wasn't successful,
-     * so it will be a String for now.
+     * Initially I tried to make resultReps an ElementCollection List, so as to not having to make it an Entity
+     * and create a table for DB. But, alas, I wasn't successful, so it will be a String for now.
      */
     // @ElementCollection
     // private List<Integer> resultReps = new ArrayList<Integer>(targetSets != null ? targetSets.intValue() : 0);
