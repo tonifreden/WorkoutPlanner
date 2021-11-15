@@ -6,10 +6,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-// import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,12 +25,16 @@ public class Workout {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     
-    private String routine; // i.e. legs, chest, back, biceps... essentially the "name" of the session, could be e.g. "Legs & Shoulders" or "Cardio"
+    private String routine; // i.e. legs, chest, back, biceps... essentially the "name" of the workout, could be e.g. "Legs & Shoulders" or "Abs & Core"
 
     private String location; // gym/place where workout was or is to be done, mostly for personal reference. not mandatory. example: "Kamppi Fressi" or "Herttoniemi Elixia"
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout", orphanRemoval = true)
     private List<Exercise> exercises;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
 
     public Workout() {
 
@@ -48,6 +53,15 @@ public class Workout {
         this.routine = routine;
         this.location = location;
         this.exercises = exercises;
+    }
+
+    public Workout(LocalDate date, String routine, String location, List<Exercise> exercises, User user) {
+        super();
+        this.date = date;
+        this.routine = routine;
+        this.location = location;
+        this.exercises = exercises;
+        this.user = user;
     }
 
     public Long getWorkoutId() {
@@ -104,6 +118,14 @@ public class Workout {
     public void removeExercise(Exercise exercise) {
         getExercises().remove(exercise);
         exercise.setWorkout(null);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

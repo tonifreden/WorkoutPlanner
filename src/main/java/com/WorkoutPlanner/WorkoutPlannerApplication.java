@@ -28,10 +28,19 @@ public class WorkoutPlannerApplication {
 	@Bean
 	public CommandLineRunner workoutDemo(WorkoutRepository workoutRepository, ExerciseRepository exerciseRepository, UserRepository userRepository) {
 		return (args) -> {
-			Log.info("save a couple of workouts");
-			Workout workout1 = new Workout(LocalDate.of(2021, 7, 12), "Legs & Shoulders", "Pasila Fitness 24/7", new ArrayList<>());
-			Workout workout2 = new Workout(LocalDate.of(2021, 7, 15), "Chest & Biceps", "", new ArrayList<>());
-			Workout workout3 = new Workout(LocalDate.of(2021, 7, 18), "Back & Triceps", "Personal home gym", new ArrayList<>());
+			Log.info("save a couple of users, workouts and exercises");
+			userRepository.deleteAll();
+			User toni = new User("Toni", "$2a$10$uTrTctg4BYkPXvDw3I2OG.6R7.cEZFizDqfzoPk8.V4NKIPmLtXs6", "toni@awesomemail.org", "ADMIN");
+			User user = new User("user", "$2a$10$uHgwYhqLKumssPxb1ooWDOfgCn3SgFkU5CVsK3KXp9BdSjs2Tf8cq", "user@usermail.com", "USER");
+			User admin = new User("admin", "$2a$10$CuDAFP7yMSmO8qNUsUmLgOFcytLlPXgsN5Uk23Zo9K2i6asRgMu..", "admin@adminmail.com", "ADMIN");
+			userRepository.save(toni);
+			userRepository.save(user);
+			userRepository.save(admin);
+
+			Workout workout1 = new Workout(LocalDate.of(2021, 7, 12), "Legs & Shoulders", "Pasila Fitness 24/7", new ArrayList<>(), toni);
+			Workout workout2 = new Workout(LocalDate.of(2021, 7, 15), "Chest & Biceps", "", new ArrayList<>(), toni);
+			Workout workout3 = new Workout(LocalDate.of(2021, 7, 18), "Back & Triceps", "Personal home gym", new ArrayList<>(), user);
+			
 			workoutRepository.save(workout1);
 			workoutRepository.save(workout2);
 			workoutRepository.save(workout3);
@@ -40,10 +49,6 @@ public class WorkoutPlannerApplication {
 			exerciseRepository.save(new Exercise("sitä", "100kg", 5, 5, "", workout1));
 			exerciseRepository.save(new Exercise("tätä", "20kg", 3, 6, "6, 6, 5", "aivan paska", workout1));
 
-			userRepository.deleteAll();
-			userRepository.save(new User("Toni", "$2a$10$uTrTctg4BYkPXvDw3I2OG.6R7.cEZFizDqfzoPk8.V4NKIPmLtXs6", "toni@awesomemail.org", "ADMIN"));
-			userRepository.save(new User("user", "$2a$10$uHgwYhqLKumssPxb1ooWDOfgCn3SgFkU5CVsK3KXp9BdSjs2Tf8cq", "user@usermail.com", "USER"));
-			userRepository.save(new User("admin", "$2a$10$CuDAFP7yMSmO8qNUsUmLgOFcytLlPXgsN5Uk23Zo9K2i6asRgMu..", "admin@adminmail.com", "ADMIN"));
 
 			Log.info("fetch all workouts");
 			for (Workout workout : workoutRepository.findAll()) {

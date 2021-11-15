@@ -3,10 +3,14 @@ package com.WorkoutPlanner.web;
 import java.util.List;
 import java.util.Optional;
 
+import com.WorkoutPlanner.domain.User;
+import com.WorkoutPlanner.domain.UserRepository;
 import com.WorkoutPlanner.domain.Workout;
 import com.WorkoutPlanner.domain.WorkoutRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +27,9 @@ public class WorkoutController {
 
     @Autowired
     WorkoutRepository workoutRepository;
+
+    @Autowired
+    UserRepository userRepository;
     
     /****************** RESTFUL SERVICES ******************/
 
@@ -39,17 +46,20 @@ public class WorkoutController {
     }
 
     // Save new workout
-    @PostMapping("/workouts")
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
+    @PostMapping("/api/workouts")
     public @ResponseBody Workout saveWorkoutRest(@RequestBody Workout workout) {
         return workoutRepository.save(workout);
     }
 
     /******************************************************/
 
-    // Show all workouts in a list, sorted by date
+    // Show current User's workouts in a list, sorted by date
+    @PreAuthorize(value = "hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/workoutlist")
-    public String workoutList(Model model) {
-        model.addAttribute("workouts", workoutRepository.findAllByOrderByDate());
+    public String workoutList(Model model, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        model.addAttribute("workouts", workoutRepository.findAllByUserOrderByDate(user));
         return "workoutlist";
     }
 
@@ -60,25 +70,41 @@ public class WorkoutController {
         return "addworkout";
     }
 
-    // Save new workout (redirects to newly created workout's exercise list)
+    // Save new workout for current User (redirects to newly created workout's exercise list)
+    @PreAuthorize(value = "hasAnyAuthority('USER', 'ADMIN')")
     @PostMapping("/save")
-    public String saveWorkout(Workout workout, RedirectAttributes redirectAttributes) {
+    public String saveWorkout(Workout workout, RedirectAttributes redirectAttributes, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        workout.setUser(user);
         workoutRepository.save(workout);
         redirectAttributes.addAttribute("id", workout.getWorkoutId());
         return "redirect:/workoutlist/{id}";
     }
 
-    // Delete workout (and all exercises in it)
+    // Delete workout (and all exercises in it) from current User
+    @PreAuthorize(value = "hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/delete/{id}")
-    public String deleteWorkout(@PathVariable("id") Long workoutId) {
-        workoutRepository.deleteById(workoutId);
+    public String deleteWorkout(@PathVariable("id") Long workoutId, Authentication auth, RedirectAttributes redirectAttributes) {
+        User user = userRepository.findByUsername(auth.getName());
+        if (user == workoutRepository.findById(workoutId).get().getUser()) {
+            workoutRepository.deleteById(workoutId);
+        } else {
+            redirectAttributes.addFlashAttribute("warningMessage", "You are not authorized to do that!");
+        }
         return "redirect:../workoutlist";
     }
 
-    // Edit workout (redirects to edited workout's exercise list)
+    // Edit workout from current User (redirects to edited workout's exercise list after saving)
+    @PreAuthorize(value = "hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/edit/{id}")
-    public String editWorkout(@PathVariable("id") Long workoutId, Model model) {
-        model.addAttribute("workout", workoutRepository.findById(workoutId));
-        return "editworkout";
+    public String editWorkout(@PathVariable("id") Long workoutId, Model model, Authentication auth, RedirectAttributes redirectAttributes) {
+        User user = userRepository.findByUsername(auth.getName());
+        if (user == workoutRepository.findById(workoutId).get().getUser()) {
+            model.addAttribute("workout", workoutRepository.findById(workoutId));
+            return "editworkout";
+        } else {
+            redirectAttributes.addFlashAttribute("warningMessage", "You are not authorized to do that!");
+            return "redirect:../workoutlist";
+        }
     }
 }

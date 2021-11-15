@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Workout Planner</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    </head>
+
+    <body>
+        <div style="clear: both; display: block; height: 20px;"></div>
+        <div class="container">
+            <div style="clear: both; display: block; height: 20px;"></div>
+            <div class="col-md-8">
+                <h1>Workout Planner users</h1>
+            </div>
+            <div th:if="${successMessage}">
+                <div style="clear: both; display: block; height: 20px;"></div>
+                <div class="alert alert-warning col-md-5" th:text="${successMessage}"></div>
+            </div>
+            <div style="clear: both; display: block; height: 20px;"></div>
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th sec:authorize="hasAuthority('ADMIN')">&nbsp;</th>
+                </tr>
+                <tr th:if="${users.empty}">
+                    <td colspan="4">No users yet! Although that is weird... I mean, you are here, and you're an admin, which also makes you one of the users... well, have fun not having any users, I guess.</td>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/userlist/delete/{id}(id=${user.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you wish to delete this user? I don\'t think they\'ve done anything wrong...')">Delete user</a></td>
+                </tr>
+            </table>
+            <a href="/workoutlist" class="btn btn-primary">Go back to your own workouts</a>
+        </div>
+    </body>
+</html>

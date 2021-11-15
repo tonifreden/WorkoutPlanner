@@ -12,6 +12,9 @@ public interface WorkoutRepository extends CrudRepository<Workout, Long> {
     // Find all workouts based on its/their routine (name)
     List<Workout> findByRoutine(String routine);
 
-    // Method for sorting all Workouts by date, default view for main page / workout list
+    // Method for sorting ALL Workouts by date
     List<Workout> findAllByOrderByDate();
+
+    // Method for finding a specific User's Workouts, sorted by date. Default view for main page / workout list
+    List<Workout> findAllByUserOrderByDate(User user);
 }
