@@ -91,4 +91,15 @@ public class AppRepositoryTest {
         assertThat(exercise.getName()).isNull();
         assertThat(exercise.getResultReps()).isNull();
     }
+
+    /**
+     * Test exerciseRepository by deleting an exercise by id. Assert that 1) deleted exercise can not be found (Optional is empty), 2) number of exercises in exerciseRepository is 2
+     */
+    @Test
+    public void deleteExercise() {
+        long id = 4;
+        exerciseRepository.deleteById(Long.valueOf(id));
+        assertThat(exerciseRepository.findById(id)).isEmpty();
+        assertThat(exerciseRepository.count()).isEqualTo(2);
+    }
 }

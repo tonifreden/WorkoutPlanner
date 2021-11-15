@@ -45,9 +45,9 @@ public class WorkoutPlannerApplication {
 			workoutRepository.save(workout2);
 			workoutRepository.save(workout3);
 			
-			exerciseRepository.save(new Exercise("jotain", "60kg", 3, 8, "hyvin meni", workout1));
-			exerciseRepository.save(new Exercise("sitä", "100kg", 5, 5, "", workout1));
-			exerciseRepository.save(new Exercise("tätä", "20kg", 3, 6, "6, 6, 5", "aivan paska", workout1));
+			exerciseRepository.save(new Exercise("Squat", "60kg", 3, 8, "", workout1));
+			exerciseRepository.save(new Exercise("Overhead press", "100kg", 5, 5, "Trying for personal best", workout1));
+			exerciseRepository.save(new Exercise("Calves", "20kg", 3, 6, "6, 5, 4", "Way too heavy, reduce weights next time", workout1));
 
 
 			Log.info("fetch all workouts");
