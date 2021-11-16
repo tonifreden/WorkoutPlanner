@@ -30,4 +30,4 @@ This simple diary-like application lets users plan and keep track of their worko
 - Users can view, add, edit and delete their workouts
 - Users can add/remove exercises to/from their workouts
 - Users can save post-workout results and comments to each exercise
-- Admin\(s) can view all users in a list and delete them, if they misbehave
+- Admin(s) can view all users in a list and delete them, if they misbehave

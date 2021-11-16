@@ -14,7 +14,7 @@
 	<name>WorkoutPlanner</name>
 	<description>Spring Boot school project</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version> <!-- version changed from 11 to 8 for Heroku deployment -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,11 +32,16 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- PostgreSQL dependency replaces H2 database for Heroku deployment -->
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<!-- <dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
