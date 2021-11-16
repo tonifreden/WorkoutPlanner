@@ -13,22 +13,22 @@
             <form th:action="@{/workoutlist/{id}/save (id=${workout.workoutId})}" action="#" method="post">
                 <div class="row row-no-gutters">
                     <label for="name" class="col-form-label col-md-1">Name</label>
-                    <input type="text" id="name" th:field="${exercise.name}" class="form-control col-md-2" required />
+                    <input type="text" id="name" th:field="${exercise.name}" class="form-control col-md-2" placeholder='e.g. "Bench press"' required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
                     <label for="targetWeights" class="col-form-label col-md-1">Target weights</label>
-                    <input type="text" id="targetWeights" th:field="${exercise.targetWeights}" class="form-control col-md-2" required />
+                    <input type="text" id="targetWeights" th:field="${exercise.targetWeights}" class="form-control col-md-2" placeholder='e.g. "70kg"' required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
                     <label for="targetSets" class="col-form-label col-md-1">Target sets</label>
-                    <input type="text" id="targetSets" th:field="${exercise.targetSets}" class="form-control col-md-2" required />
+                    <input type="text" id="targetSets" th:field="${exercise.targetSets}" class="form-control col-md-2" placeholder="0-99" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
                     <label for="targetReps" class="col-form-label col-md-1">Target reps</label>
-                    <input type="text" id="targetReps" th:field="${exercise.targetReps}" class="form-control col-md-2" required />
+                    <input type="text" id="targetReps" th:field="${exercise.targetReps}" class="form-control col-md-2" placeholder="0-99" required />
                 </div>
                 <div style="clear: both; display: block; height: 20px;"></div>
                 <input type="submit" class="btn btn-success" value="Add exercise" />

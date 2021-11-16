@@ -10,18 +10,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Exercise {
-    // TODO: validatorit exerciseihin?
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long exerciseId;
     private String name;
     private String targetWeights; // e.g. "60kg"
+
+    @Digits(integer = 2, fraction = 0)
     private Integer targetSets;
+
+    @Digits(integer = 2, fraction = 0)
     private Integer targetReps; // i.e. reps per set
 
     /**
