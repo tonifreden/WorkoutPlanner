@@ -88,7 +88,7 @@ public class ExerciseController {
     @PostMapping("/workoutlist/{id}/save")
     public String addExercise(@PathVariable("id") Long workoutId, @ModelAttribute Exercise exercise) {
         exercise.setName(exercise.getName());
-        exercise.setTargetWeight(exercise.getTargetWeight());
+        exercise.setTargetWeights(exercise.getTargetWeights());
         exercise.setTargetSets(exercise.getTargetSets());
         exercise.setTargetReps(exercise.getTargetReps());
         exercise.setWorkout(workoutRepository.findById(workoutId).get());

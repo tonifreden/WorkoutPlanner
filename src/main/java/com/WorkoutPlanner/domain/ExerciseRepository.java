@@ -9,7 +9,7 @@ public interface ExerciseRepository extends CrudRepository<Exercise, Long> {
     List<Exercise> findByName(String name);
 
     // Find all exercises based on target weight
-    List<Exercise> findByTargetWeight(String targetWeight);
+    List<Exercise> findByTargetWeights(String targetWeights);
 
     // Find all exercises based on the number of target sets
     List<Exercise> findByTargetSets(Integer targetSets);

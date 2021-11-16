@@ -46,7 +46,7 @@ public class WorkoutPlannerApplication {
 			workoutRepository.save(workout3);
 			
 			exerciseRepository.save(new Exercise("Squat", "60kg", 3, 8, "", workout1));
-			exerciseRepository.save(new Exercise("Overhead press", "100kg", 5, 5, "Trying for personal best", workout1));
+			exerciseRepository.save(new Exercise("Overhead press", "100kg", 5, 5, "", workout1));
 			exerciseRepository.save(new Exercise("Calves", "20kg", 3, 6, "6, 5, 4", "Way too heavy, reduce weights next time", workout1));
 
 

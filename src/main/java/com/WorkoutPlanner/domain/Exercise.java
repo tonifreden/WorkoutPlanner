@@ -20,7 +20,7 @@ public class Exercise {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long exerciseId;
     private String name;
-    private String targetWeight; // e.g. "60kg"
+    private String targetWeights; // e.g. "60kg"
     private Integer targetSets;
     private Integer targetReps; // i.e. reps per set
 
@@ -51,20 +51,20 @@ public class Exercise {
 
     }
 
-    public Exercise(String name, String targetWeight, Integer targetSets, Integer targetReps, String comments, Workout workout) {
+    public Exercise(String name, String targetWeights, Integer targetSets, Integer targetReps, String comments, Workout workout) {
         super();
         this.name = name;
-        this.targetWeight = targetWeight;
+        this.targetWeights = targetWeights;
         this.targetSets = targetSets;
         this.targetReps = targetReps;
         this.comments = comments;
         this.workout = workout;
     }
 
-    public Exercise(String name, String targetWeight, Integer targetSets, Integer targetReps, String resultReps, String comments, Workout workout) {
+    public Exercise(String name, String targetWeights, Integer targetSets, Integer targetReps, String resultReps, String comments, Workout workout) {
         super();
         this.name = name;
-        this.targetWeight = targetWeight;
+        this.targetWeights = targetWeights;
         this.targetSets = targetSets;
         this.targetReps = targetReps;
         this.comments = comments;
@@ -88,12 +88,12 @@ public class Exercise {
         this.name = name;
     }
 
-    public String getTargetWeight() {
-        return targetWeight;
+    public String getTargetWeights() {
+        return targetWeights;
     }
 
-    public void setTargetWeight(String targetWeight) {
-        this.targetWeight = targetWeight;
+    public void setTargetWeights(String targetWeights) {
+        this.targetWeights = targetWeights;
     }
 
     public Integer getTargetSets() {
@@ -140,14 +140,14 @@ public class Exercise {
     public String toString() {
         if (this.workout != null) {
             return "Exercise: " + name +
-                    ", target weight: " + targetWeight +
+                    ", target weight: " + targetWeights +
                     ", target sets and reps: " + targetSets + " x " + targetReps +
                     ", results: " + resultReps +
                     ", comments: " + comments +
                     "; workout: " + workout.getDate() + " " + workout.getRoutine();
         } else {
             return "Exercise: " + name +
-                    ", target weight: " + targetWeight +
+                    ", target weight: " + targetWeights +
                     ", target sets and reps: " + targetSets + " x " + targetReps +
                     ", results: " + resultReps +
                     ", comments: " + comments;

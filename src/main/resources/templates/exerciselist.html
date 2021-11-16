@@ -17,8 +17,8 @@
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
-                    <label for="targetWeight" class="col-form-label col-md-1">Target weight</label>
-                    <input type="text" id="targetWeight" th:field="${exercise.targetWeight}" class="form-control col-md-2" required />
+                    <label for="targetWeights" class="col-form-label col-md-1">Target weights</label>
+                    <input type="text" id="targetWeights" th:field="${exercise.targetWeights}" class="form-control col-md-2" required />
                 </div>
                 <div style="clear: both; display: block; height: 10px;"></div>
                 <div class="row row-no-gutters">
@@ -47,7 +47,7 @@
             <table class="table table-striped">
                 <tr>
                     <th>Name</th>
-                    <th>Target weight</th>
+                    <th>Target weights</th>
                     <th>Target sets</th>
                     <th>Target reps per set</th>
                     <th>Total target reps</th>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr th:each="exercise : ${workout.exercises}">
                     <td th:text="${exercise.name}"></td>
-                    <td th:text="${exercise.targetWeight}"></td>
+                    <td th:text="${exercise.targetWeights}"></td>
                     <td th:text="${exercise.targetSets}"></td>
                     <td th:text="${exercise.targetReps}"></td>
                     <td th:text="${exercise.targetSets != null && exercise.targetReps != null ? exercise.targetSets * exercise.targetReps : exercise.targetReps}"></td>
