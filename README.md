@@ -1,7 +1,7 @@
 # Workout Planner
 ## Final project for Haaga-Helia backend/server programming course
 
-The application is live at [https://project-workoutplanner.herokuapp.com/]
+The application is live at https://project-workoutplanner.herokuapp.com/
 
 This simple diary-like application lets users plan and keep track of their workouts, helping them to achieve greater results faster.
 
